@@ -1,5 +1,11 @@
 # Release Notes
 
+## v1.0.1 - Accessibility hardening
+
+- Increased contrast for secondary, accent, and failure text across the audio QA workbench.
+- Made the horizontally scrollable reference comparison table keyboard focusable and labeled.
+- Preserved Web Audio analysis, waveform, threshold, review, and export workflows.
+
 ## v1.0.0 - Local Audio QA Workbench
 
 - Added four deterministic speech-shaped WAV fixtures: clear, clipped, noisy, and pause-heavy.

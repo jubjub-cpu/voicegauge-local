@@ -2,7 +2,7 @@
 
 VoiceGauge Local is a privacy-first browser audio QA workbench. It decodes actual audio with the Web Audio API, calculates transparent PCM metrics, maps clipping/silence/noise findings onto a Canvas waveform, compares a selected source with a clear baseline, and keeps the handoff decision with a human reviewer.
 
-[Live demo](https://jubjub-cpu.github.io/voicegauge-local/) | [Portfolio](https://jubjub-cpu.github.io/gabe-ai-product-portfolio/) | [v1.0.0 release](https://github.com/jubjub-cpu/voicegauge-local/releases/tag/v1.0.0)
+[Live demo](https://jubjub-cpu.github.io/voicegauge-local/) | [Portfolio](https://jubjub-cpu.github.io/gabe-ai-product-portfolio/) | [v1.0.1 release](https://github.com/jubjub-cpu/voicegauge-local/releases/tag/v1.0.1)
 
 ## Business Problem
 
