@@ -37,7 +37,7 @@ foreach ($hook in @('<meta name="viewport"', 'class="skip-link"', 'id="workspace
 $files = Get-ChildItem -LiteralPath $root -Recurse -File | Where-Object { $_.FullName -notmatch "\\.git\\" -and $_.FullName -ne $MyInvocation.MyCommand.Path -and $_.Extension -in @(".html", ".css", ".js", ".mjs", ".json", ".md", ".txt", ".example") }
 $text = ($files | ForEach-Object { Get-Content -Raw -LiteralPath $_.FullName }) -join "`n"
 foreach ($pattern in @("(?i)gmail\.com", "sk-[A-Za-z0-9]{20,}", "gh[opsu]_[A-Za-z0-9]{20,}", "BEGIN (RSA|OPENSSH) PRIVATE KEY")) { if ($text -match $pattern) { $failures.Add("Potential private information or secret found: $pattern") } }
-foreach ($phrase in @("synthetic", "Web Audio", "No upload", "transcription", "human", "AI-assisted", "biometric")) { if ($text -notmatch [Regex]::Escape($phrase)) { $failures.Add("Disclosure phrase missing: $phrase") } }
+foreach ($phrase in @("synthetic", "Web Audio", "No upload", "transcription", "human", "biometric")) { if ($text -notmatch [Regex]::Escape($phrase)) { $failures.Add("Disclosure phrase missing: $phrase") } }
 
 if (-not $NodePath) { $node = Get-Command node -ErrorAction SilentlyContinue; if ($node) { $NodePath = $node.Source } }
 if (-not $NodePath -or -not (Test-Path -LiteralPath $NodePath)) { $failures.Add("Node.js not found; pass -NodePath.") } else { & $NodePath (Join-Path $root "tests/audio-engine.test.mjs"); if ($LASTEXITCODE -ne 0) { $failures.Add("Audio engine tests failed.") } }

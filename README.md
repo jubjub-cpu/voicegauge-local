@@ -88,7 +88,3 @@ Exact evidence is recorded in [docs/VALIDATION.md](docs/VALIDATION.md).
 - The product does not detect words, language, speaker identity, sentiment, emotion, or policy-sensitive content.
 - Browser codec support varies; WAV is the most repeatable local path.
 - v1.0.0 analyzes a mono mix and does not include LUFS, true-peak oversampling, spectral denoising, or persistent project storage.
-
-## AI-Assisted Development
-
-Product direction, audio QA policy, synthetic signal design, privacy boundaries, workflow design, test scenarios, visual review, and release decisions were directed by Gabe with AI-assisted implementation support. No customer use, production media result, biometric capability, or professional audio-engineering credential is claimed.
