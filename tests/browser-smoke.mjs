@@ -33,6 +33,14 @@ async function acceptClippedWithEvidence(page) {
   assert.match(await page.locator("#audit-list").innerText(), /Audio accepted/);
 }
 
+async function waitForAudioMetadata(page) {
+  await page.locator("#audio-player").evaluate((audio) => new Promise((resolve, reject) => {
+    if (audio.readyState >= 4) { resolve(); return; }
+    audio.addEventListener("canplaythrough", resolve, { once: true });
+    audio.addEventListener("error", () => reject(new Error("Audio source failed to become playable")), { once: true });
+  }));
+}
+
 let browser;
 try {
   await ready();
@@ -53,6 +61,7 @@ try {
   assert.match(await page.locator("#source-heading").innerText(), /Overdriven handoff/);
   assert.match(await page.locator("#audio-player").getAttribute("src"), /clipped-brief\.wav/);
   assert.match(await page.locator("#readiness-status").innerText(), /review/i);
+  await waitForAudioMetadata(page);
   await acceptClippedWithEvidence(page);
 
   const waveformPixels = await page.locator("#waveform").evaluate((canvas) => {
@@ -66,14 +75,17 @@ try {
   await page.screenshot({ path: desktopShot, fullPage: true });
 
   await page.locator('[data-sample="noisy-brief"]').click();
+  await waitForAudioMetadata(page);
   assert.match(await page.locator("#findings-list").innerText(), /Quiet-floor proxy is elevated/);
   await page.locator('[data-sample="pause-heavy"]').click();
+  await waitForAudioMetadata(page);
   assert.match(await page.locator("#findings-list").innerText(), /Silence ratio is high/);
   await page.locator("#maxSilencePercent").evaluate((input) => { input.value = "70"; input.dispatchEvent(new Event("change", { bubbles: true })); });
   assert.match(await page.locator("#readiness-status").innerText(), /ready/i);
   await page.locator("#reset-policy").click();
   assert.match(await page.locator("#findings-list").innerText(), /Silence ratio is high/);
   await page.locator('[data-sample="clear-brief"]').click();
+  await waitForAudioMetadata(page);
   assert.match(await page.locator("#findings-list").innerText(), /All configured checks pass/);
 
   const download = page.waitForEvent("download");
@@ -92,6 +104,7 @@ try {
   const mobilePage = await mobile.newPage();
   await mobilePage.goto(base, { waitUntil: "networkidle" });
   await mobilePage.locator('[data-sample="pause-heavy"]').click();
+  await waitForAudioMetadata(mobilePage);
   await mobilePage.locator("#review-note").fill("Long silence exceeds the synthetic delivery policy.");
   await mobilePage.locator("#request-rerecord").click();
   assert.match(await mobilePage.locator("#decision-summary").innerText(), /Re-record requested/);

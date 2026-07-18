@@ -17,9 +17,17 @@ Status: passed on 2026-07-17.
 
 ## Deployment Checks
 
-Status: pending the first GitHub Pages publish.
+Status: passed on 2026-07-17.
 
-The deployed browser suite will run against `https://jubjub-cpu.github.io/voicegauge-local/` and must match the local workflow before v1.0.0 is released.
+- GitHub Pages built remote commit `61714a9768d1a8b9e58a4bb14c96e8fc418776c2` successfully.
+- `https://jubjub-cpu.github.io/voicegauge-local/` returned HTTP 200.
+- The clear WAV returned HTTP 200, 198,444 bytes, and `audio/wav` content type.
+- `VOICEGAUGE BROWSER TESTS PASSED` against the deployed URL.
+- Four hosted WAVs decoded through Web Audio.
+- PCM metrics, waveform pixels, clipping/noise/silence findings, threshold tuning, human gate, local import, and JSON export passed.
+- Desktop and mobile overflow: none.
+- Browser console errors: none.
+- Failed requests: none after each native audio source reached a playable state.
 
 ## Privacy Check
 
