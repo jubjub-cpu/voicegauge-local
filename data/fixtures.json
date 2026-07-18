@@ -1,0 +1,38 @@
+{
+  "suite": "VoiceGauge synthetic speech-shaped fixtures",
+  "notice": "These generated signals contain no human speech, identity, customer recording, or transcribed content.",
+  "fixtures": [
+    {
+      "id": "clear-brief",
+      "title": "Clear support brief",
+      "file": "data/audio/clear-brief.wav",
+      "profile": "Balanced level with two natural synthetic pauses and a low quiet-floor proxy.",
+      "baseline": true,
+      "expectedFinding": "ready"
+    },
+    {
+      "id": "clipped-brief",
+      "title": "Overdriven handoff",
+      "file": "data/audio/clipped-brief.wav",
+      "profile": "Amplified speech-shaped harmonics intentionally hit the PCM ceiling.",
+      "baseline": false,
+      "expectedFinding": "clipping"
+    },
+    {
+      "id": "noisy-brief",
+      "title": "Noisy room brief",
+      "file": "data/audio/noisy-brief.wav",
+      "profile": "A deterministic noise layer raises the quiet-floor proxy across the recording.",
+      "baseline": false,
+      "expectedFinding": "noise"
+    },
+    {
+      "id": "pause-heavy",
+      "title": "Pause-heavy update",
+      "file": "data/audio/pause-heavy.wav",
+      "profile": "Three short speech-shaped regions are separated by intentionally long silence.",
+      "baseline": false,
+      "expectedFinding": "silence"
+    }
+  ]
+}
